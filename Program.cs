@@ -29,7 +29,13 @@ app.Urls.Add($"http://*:{port}");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger();
+
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Invoice API V1");
+        c.RoutePrefix = "swagger"; // ensures correct path
+    });
 }
 
 app.UseHttpsRedirection();
@@ -44,7 +50,7 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     db.Database.Migrate();
-    
+
     if (!db.Items.Any())
     {
         db.Items.AddRange(
