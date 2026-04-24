@@ -28,14 +28,21 @@ app.Urls.Add($"http://*:{port}");
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseRouting();
+
     app.UseSwagger();
 
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Invoice API V1");
-        c.RoutePrefix = "swagger"; // ensures correct path
+        c.RoutePrefix = "swagger";
     });
+
+    app.UseHttpsRedirection();
+    app.UseCors("AllowAll");
+    app.UseAuthorization();
+
+    app.MapControllers();
 }
 
 app.UseHttpsRedirection();
