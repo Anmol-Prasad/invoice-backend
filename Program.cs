@@ -1,8 +1,9 @@
 using InvoiceAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -21,20 +22,26 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Middleware
-app.UseSwagger();
-app.UseSwaggerUI();
+// Port config (moved up)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
-
 app.MapControllers();
 
+// Seed data
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<InvoiceAPI.Data.AppDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     if (!db.Items.Any())
     {
@@ -47,8 +54,5 @@ using (var scope = app.Services.CreateScope())
         db.SaveChanges();
     }
 }
-
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://*:{port}");
 
 app.Run();
