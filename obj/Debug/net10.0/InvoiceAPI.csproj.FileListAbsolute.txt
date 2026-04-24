@@ -149,3 +149,4 @@ C:\Users\Anmol Prasad\Desktop\Thinkbridge\InvoiceAPI\obj\Debug\net10.0\refint\In
 C:\Users\Anmol Prasad\Desktop\Thinkbridge\InvoiceAPI\obj\Debug\net10.0\InvoiceAPI.pdb
 C:\Users\Anmol Prasad\Desktop\Thinkbridge\InvoiceAPI\obj\Debug\net10.0\InvoiceAPI.genruntimeconfig.cache
 C:\Users\Anmol Prasad\Desktop\Thinkbridge\InvoiceAPI\obj\Debug\net10.0\ref\InvoiceAPI.dll
+C:\Users\Anmol Prasad\Desktop\Thinkbridge\InvoiceAPI\obj\Debug\net10.0\InvoiceAPI.sourcelink.json
