@@ -48,4 +48,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
+
 app.Run();
